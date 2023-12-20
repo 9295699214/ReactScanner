@@ -1,8 +1,11 @@
+// Login.js
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(null);
 
   const handleLogin = async () => {
     try {
@@ -13,13 +16,21 @@ const Login = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-      const data = await response.json();
-      console.log(data);
-      // redirect new page and Scan QR and Key
+
+      // Redirect to the dashboard on successful login
+      if (response.status === 200) {
+        setRedirect('/dashboard');
+        onLogin(); // Call the onLogin function passed from the parent component
+      }
     } catch (error) {
       console.error('Error logging in:', error);
     }
   };
+
+  if (redirect) {
+    // Use the Navigate component to redirect to the specified route
+    return <Navigate to={redirect} />;
+  }
 
   return (
     <div>
