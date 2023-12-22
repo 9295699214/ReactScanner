@@ -1,6 +1,7 @@
 // Dashboard.js
 import React from 'react';
 import QRScanner from './QRScanner';
+import './dashboard.css';
 
 const Dashboard = ({ isLoggedIn }) => {
   if (!isLoggedIn) {
@@ -10,7 +11,6 @@ const Dashboard = ({ isLoggedIn }) => {
 
   return (
     <div>
-      <h2>Dashboard</h2>
       <QRScanner />
       {/* Other dashboard content goes here */}
     </div>

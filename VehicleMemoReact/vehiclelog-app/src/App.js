@@ -1,9 +1,11 @@
 // App.js
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
 import Dashboard from './dashboard';
+import NavigationBar from './NavBar'; // Import the NavigationBar component
+import './App.css'; 
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,42 +23,13 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <nav>
-          <ul>
-            {!isLoggedIn ? (
-              <>
-                <li>
-                  <Link to="/signup">Signup</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link to="/dashboard">Dashboard</Link>
-                </li>
-                <li>
-                  <button onClick={handleLogout}>Logout</button>
-                </li>
-              </>
-            )}
-          </ul>
-        </nav>
-
         <hr />
-
+        <NavigationBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Routes>
+          <Route path="/" element={<Login onLogin={handleLogin} />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/login"
-            element={<Login onLogin={handleLogin} />}
-          />
-          <Route
-            path="/dashboard"
-            element={<Dashboard isLoggedIn={isLoggedIn} />}
-          />
+          <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} />} />
         </Routes>
       </div>
     </Router>

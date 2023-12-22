@@ -35,16 +35,18 @@ app.post('/signup', async (req, res) => {
 
 
 app.post('/login', async (req, res) => {
-  const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
   try {
-    const result = await db.query('SELECT * FROM tb_users WHERE email = $1 AND password = $2', [email, password]);
-
+    const result = await db.query('SELECT * FROM tb_users WHERE username = $1 AND password = $2', [username, password]);
+    console.log('result in Main', result)
     if (result.rows.length > 0) {
+      // Successful login
       res.status(200).json({ message: 'Login successful', user: result.rows[0] });
     } else {
-      res.status(401).json({ message: 'Invalid email or password' });
+      // Invalid credentials
+      res.status(401).json({ message: 'Invalid username or password' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Error logging in', error: error.message });

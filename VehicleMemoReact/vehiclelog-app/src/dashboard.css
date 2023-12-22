@@ -1,0 +1,25 @@
+/* Dashboard.css */
+.dashboard-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .dashboard-container {
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-container h2 {
+    color: #333;
+  }
+  
+  
+  /* Add more styles as needed for your dashboard content */
+  
