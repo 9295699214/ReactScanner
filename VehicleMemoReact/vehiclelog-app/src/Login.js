@@ -21,19 +21,25 @@ const Login = ({ onLogin }) => {
       });
 
       const data = await response.json();
-      console.log('data in login', data)
-      if (response.status === 200) {
+      if (response.ok) {
         // Successful login
-        setRedirect('/dashboard');
-        onLogin(data.user); // Pass the user data to the onLogin function
-        toast.success('Login successful!');
+        if (data.user && (data.user.user_security === 'Super' || data.user.user_security === 'Admin')) {
+          // Proceed with login for Super/Admin users
+          setRedirect('/dashboard');
+          onLogin(data.user); // Pass the user data to the onLogin function
+          toast.success('Login successful!');
+        } else {
+          // User is not authorized
+          console.error('Not authorized to login:', data.message);
+          toast.error('Login failed. You are not authorized to log in. Contact admin');
+        }
       } else {
         // Failed login
-        console.error('Error logging in:', data.message);
+        console.error('Error logging in:', data.message || 'Unknown error');
         toast.error('Login failed. Please check your credentials.');
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error('Error logging in:', error.message || 'Unknown error');
       toast.error('Login failed. Please try again.');
     }
   };
@@ -55,9 +61,21 @@ const Login = ({ onLogin }) => {
       <br />
       <button onClick={handleLogin}>Log in</button>
       <div className="signup-link">
-        <p>Don't have an account? <a href="/signup">Sign up</a></p>
+        <p>
+          Don't have an account? <a href="/signup">Sign up</a>
+        </p>
       </div>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

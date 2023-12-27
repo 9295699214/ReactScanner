@@ -1,7 +1,9 @@
 // Dashboard.js
 import React from 'react';
-import QRScanner from './QRScanner';
+// import QRScanner from './QRScanner';
 import './dashboard.css';
+import DashboardIcon from './DashboardIcon';
+import qrCodeIcon from '../src/assets/qricon.png';
 
 const Dashboard = ({ isLoggedIn }) => {
   if (!isLoggedIn) {
@@ -10,9 +12,11 @@ const Dashboard = ({ isLoggedIn }) => {
   }
 
   return (
+    // <div>
+    //   <QRScanner />
+    // </div>
     <div>
-      <QRScanner />
-      {/* Other dashboard content goes here */}
+      <DashboardIcon icon={qrCodeIcon} text="QR Code Generator" to="/dashboard/QRCodeGenerator" />
     </div>
   );
 };

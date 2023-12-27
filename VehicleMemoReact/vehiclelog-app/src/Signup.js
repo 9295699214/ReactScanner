@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Signup.css';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [firstname, setFirstname] = useState('');
@@ -15,6 +16,16 @@ const Signup = () => {
   const [status, setStatus] = useState('');
   const [currentLoggedIn, setCurrentLoggedIn] = useState(false);
   const [messageNotified, setMessageNotified] = useState(false);
+
+  const [redirect, setRedirect] = useState(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (redirect) {
+      navigate(redirect);
+    }
+  }, [redirect, navigate]);
 
   const handleSignup = async () => {
     try {
@@ -40,12 +51,16 @@ const Signup = () => {
       const data = await response.json();
       if(data){
         toast.success('Signup successful!');
+        setTimeout(() =>{
+          setRedirect('/login');
+        },2000)
       }else{
         toast.error('Signup failed. Please try again.');
       }
     } catch (error) {
       console.error('Error signing up:', error);
     }
+  
   };
 
   return (
@@ -163,7 +178,7 @@ const Signup = () => {
     </button>
     <ToastContainer
       position="top-right"
-      autoClose={3000}
+      autoClose={2000}
       hideProgressBar={false}
       newestOnTop
       closeOnClick

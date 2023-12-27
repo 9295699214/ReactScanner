@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
 import Dashboard from './dashboard';
+import QRCodeGenerator from './QRCodeGenerator'
 import NavigationBar from './NavBar'; // Import the NavigationBar component
 import './App.css'; 
 
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} />} />
+          <Route path="/dashboard/QRCodeGenerator" element={<QRCodeGenerator isLoggedIn={isLoggedIn} />} />
         </Routes>
       </div>
     </Router>

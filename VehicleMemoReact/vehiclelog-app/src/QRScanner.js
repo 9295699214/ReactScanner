@@ -11,6 +11,7 @@ const QRScanner = () => {
     if (data && data.text) {
       setResult(data.text);
       window.open(data.text, '_blank');
+
     }
   };
 
@@ -35,6 +36,7 @@ const QRScanner = () => {
         {/* <button onClick={handleRefresh} className="refresh-button">
           Refresh
         </button> */}
+        <p>{result}</p>
       </div>
     </div>
   );
