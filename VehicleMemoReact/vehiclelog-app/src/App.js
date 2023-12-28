@@ -1,11 +1,11 @@
 // App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Signup from './Signup';
-import Login from './Login';
-import Dashboard from './dashboard';
-import QRCodeGenerator from './QRCodeGenerator'
-import NavigationBar from './NavBar'; // Import the NavigationBar component
+import Signup from './Grear-Track/Signup/Signup';
+import Login from './Grear-Track/Login/Login';
+import Dashboard from './Grear-Track/Dashboard/dashboard';
+import QRCodeGenerator from './Grear-Track/QRCodeGenerator/QRCodeGenerator'
+import NavigationBar from './Grear-Track/Navbar/NavBar';
 import './App.css'; 
 
 const App = () => {
