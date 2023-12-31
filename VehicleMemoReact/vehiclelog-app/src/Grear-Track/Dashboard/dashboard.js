@@ -1,9 +1,12 @@
 // Dashboard.js
 import React from 'react';
-// import QRScanner from './QRScanner';
+import QRScanner from '../QRScanner/QRScanner';
 import './dashboard.css';
+
 import DashboardIcon from '../DashboardIcon/DashboardIcon'
-import qrCodeIcon from '../../assets/qricon.png';
+import QRGenerator_Icon from '../../assets/QR_Generator_Icon.png';
+import Find_QR_Icon from '../../assets/Find_QR_Icon.png';
+import vehicle_out from '../../assets/vehicleOut.png';
 
 const Dashboard = ({ isLoggedIn }) => {
   if (!isLoggedIn) {
@@ -15,8 +18,10 @@ const Dashboard = ({ isLoggedIn }) => {
     // <div>
     //   <QRScanner />
     // </div>
-    <div>
-      <DashboardIcon icon={qrCodeIcon} text="QR Code Generator" to="/dashboard/QRCodeGenerator" />
+    <div className="dashboard-container">
+      <DashboardIcon  icon={QRGenerator_Icon} text="QR Code Generator" to="/dashboard/QRCodeGenerator" />
+      <DashboardIcon  icon={Find_QR_Icon} text="Find QR" to="/dashboard/FindQr" />
+      <DashboardIcon  icon={vehicle_out} text="Vehicle Out" to="/dashboard/QRScanner" />
     </div>
   );
 };

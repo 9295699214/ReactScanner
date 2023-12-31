@@ -12,7 +12,7 @@ const DashboardIcon = ({ icon, text, to }) => {
     };
   
   return (
-    <div onClick={handleClick}>
+    <div className="internal-container" onClick={handleClick}>
         <img className="icon-image" src={icon} alt={text} />
         <p>{text}</p>
     </div>

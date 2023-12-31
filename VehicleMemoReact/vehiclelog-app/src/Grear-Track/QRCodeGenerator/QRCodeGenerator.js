@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './QRCodeGenerator.css';
+import { toast } from 'react-toastify';
 import QRCode from 'qrcode.react'; 
 
 const initialState = {
@@ -15,7 +16,7 @@ const initialState = {
     currentLoggedIn: false,
     messageNotified: false,
     qrGenerated: false,
-    qrCodeImage: ''
+    qr: ''
   };
 
 
@@ -23,28 +24,48 @@ const initialState = {
     const [state, setState] = useState(initialState);
   
     const handleGenerateQRCode = async () => {
-      // Update your object as needed
-     const updatedObject = {
-      firstname: state.firstname,
-      lastname: state.lastname,
-      greetingName: state.greetingName,
-      username: state.username,
-      password: state.password,
-      userSecurity: state.userSecurity,
-      supervisor: state.supervisor,
-      userTitle: state.userTitle,
-      status: state.status,
-      currentLoggedIn: state.currentLoggedIn,
-      messageNotified: state.messageNotified,
-      qrGenerated: true, 
-      qrCodeImage: ''
+      try {
+        // Update your object as needed
+        const updatedObject = {
+          firstname: state.firstname,
+          lastname: state.lastname,
+          greetingName: state.greetingName,
+          username: state.username,
+          password: state.password,
+          userSecurity: state.userSecurity,
+          supervisor: state.supervisor,
+          userTitle: state.userTitle,
+          status: state.status,
+          currentLoggedIn: state.currentLoggedIn,
+          messageNotified: state.messageNotified,
+          qrGenerated: true,
+          qr: JSON.stringify(state),
+        };
+  
+        setState(updatedObject);
+        console.log('updated Object-->', updatedObject);
+  
+        const response = await fetch('http://localhost:3000/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedObject),
+        });
+  
+        const data = await response.json();
+        if (data) {
+          toast.success('Signup successful!');
+          // Assuming setRedirect is defined and part of your component logic
+          // setTimeout(() => setRedirect('/login'), 2000);
+        } else {
+          toast.error('Signup failed. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error signing up:', error);
+      }
     };
-  
-    const qrString = JSON.stringify(updatedObject);
-    setState({ ...updatedObject, qr: qrString });
-    console.log(updatedObject)
-    };    
-  
+
     const handleGenerateNewQRCode = () => {
       setState(initialState);
     };
@@ -54,7 +75,7 @@ const initialState = {
       {state.qrGenerated ? (
         <div>
           <h2>Here is the QR Code</h2>
-          <QRCode value={JSON.stringify(state)} />
+          <QRCode value={state.qr} />
           <br />
           <button className="qrcode-generator-button" onClick={handleGenerateNewQRCode}>
             Generate New QR Code
@@ -168,11 +189,10 @@ const initialState = {
 
     <button className="qrcode-generator-button" onClick={handleGenerateQRCode}>
             Generate QR Code
-    </button>
-    </div>
+          </button>
+        </div>
       )}
     </div>
   );
 };
-
 export default QRCodeGenerator;

@@ -39,3 +39,8 @@
     height: 400px;
     margin-left: 35px;
 }
+
+.next-button.disabled {
+  background-color: gray;
+  color: #fff; /* Change the text color if needed */
+}
